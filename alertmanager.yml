@@ -1,0 +1,22 @@
+global:
+  resolve_timeout: 5m
+
+route:
+  group_by: ['alertname']
+  group_wait: 10s      # Сколько ждать перед первой отправкой (собирает пачку алертов)
+  group_interval: 5m   # Как часто слать новые алерты в той же группе
+  repeat_interval: 3h  # Через сколько повторить, если проблема не решена
+  receiver: 'telegram'
+
+receivers:
+- name: 'telegram'
+  telegram_configs:
+  - bot_token: '8596872167:AAG5Qc6sG9O5wkXSMOKVobroaF-nWBfpPZY'
+    chat_id: 224902548
+    parse_mode: 'HTML'
+    message: |
+      <b>[ {{ .Status | toUpper }} ] {{ .CommonAnnotations.summary }}</b>
+      {{ range .Alerts }}
+        <b>Описание:</b> {{ .Annotations.description }}
+        <b>Активен с:</b> {{ .StartsAt.Format "15:04:05" }}
+      {{ end }}

@@ -1,0 +1,23 @@
+groups:
+  - name: flask_alerts
+    rules:
+      # 1. Алерт Flask down
+      - alert: FlaskContainerDown
+        expr: up{job="flask"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Контейнер Flask упал! (Instance {{ $labels.instance }})"
+          description: "Один из контейнеров в кластере не отвечает больше 1 минуты."
+
+      # ошибки 4xx 
+      - alert: HighErrorRate4xx
+        # Считаем процент 4xx ошибок от общего трафика за последние 5 минут
+        expr: (sum(rate(flask_http_request_total{status=~"4.."}[5m])) / sum(rate(flask_http_request_total[5m]))) * 100 > 10
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Много ошибок 4xx на сайте"
+          description: "Более 10% запросов возвращают 4xx ошибки. Возможно, битые ссылки или атака."
