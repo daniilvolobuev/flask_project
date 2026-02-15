@@ -16,7 +16,6 @@ scrape_configs:
     static_configs:
         - targets: ['web:5000']
 
-  # Задание для сбора системных метрик через cAdvisor
   - job_name: 'cadvisor'
     static_configs:
       - targets: ['cadvisor:8080']
