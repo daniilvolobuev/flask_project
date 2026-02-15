@@ -19,4 +19,4 @@ groups:
           severity: warning
         annotations:
           summary: "Много ошибок 4xx на сайте"
-          description: "Более 10% запросов возвращают 4xx ошибки. Возможно, битые ссылки или атака."
+          description: "Более 10% запросов возвращают 4xx ошибки"
