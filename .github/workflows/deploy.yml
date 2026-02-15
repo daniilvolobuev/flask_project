@@ -10,8 +10,7 @@ deploy:
     steps:
       - name: Update containers
         run: |
-          cd /home/kDst9/simpleapp  # Убедись, что путь правильный!
-          # Логинимся, чтобы скачать приватный образ из GHCR
+          cd /home/kDst9/simpleapp  
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
           docker compose pull
           docker compose up -d
