@@ -2,10 +2,10 @@ from flask import Flask, request
 import redis
 import time
 import os
-from prometheus_flask_exporter import PrometheusMetrics # Перенесли импорт вверх
+from prometheus_flask_exporter import PrometheusMetrics 
 
 app = Flask(__name__)
-metrics = PrometheusMetrics(app) # Инициализируем метрики сразу
+metrics = PrometheusMetrics(app) 
 
 # Подключаемся к Redis
 cache = redis.Redis(host='redis', port=6379, decode_responses=True)
