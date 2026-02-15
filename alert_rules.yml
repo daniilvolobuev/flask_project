@@ -13,7 +13,6 @@ groups:
 
       # ошибки 4xx 
       - alert: HighErrorRate4xx
-        # Считаем процент 4xx ошибок от общего трафика за последние 5 минут
         expr: (sum(rate(flask_http_request_total{status=~"4.."}[5m])) / sum(rate(flask_http_request_total[5m]))) * 100 > 10
         for: 2m
         labels:
